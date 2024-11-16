@@ -1,0 +1,16 @@
+id,question,is_enabled,keywords
+1,What is your skin undertone?,true,Skin undertone
+2,What is your natural hair color?,true,hair color
+3,What is your natural eye color?,true,eye color
+4,How does your skin react to sun exposure?,true,skin react
+5,Which metal jewelry suits you best?,true,jewelry
+6,What contrast level exists between your features (skin,hair,eyes)?,true,contrast+
+7,What is the natural color of your cheeks without makeup?,true,cheek color
+8, What color are the veins on your wrists?,true,veins
+9,When standing in natural light,does your skin appear more...,true,sunlight
+10,How does your skin tan in the sun?,true,tan
+11,How does your hair react to sunlight?,true,hair react
+12,What natural shade do your eyebrows have?,true,eyebrow shade
+13,How does your face react to the cold?,true,cold react
+14,How would you describe your skin texture?,true,skin texture
+15,What do your dark circles look like under natural light?,true,dark circles
