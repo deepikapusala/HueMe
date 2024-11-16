@@ -1,8 +1,9 @@
 from typing import Annotated
-import csv, json
+import csv
 from fastapi import FastAPI, Depends
-from fastapi import Response
+from fastapi import Request
 from sqlmodel import Field, Session, SQLModel, create_engine, select, Relationship
+from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
 
@@ -13,10 +14,8 @@ connect_args = {"check_same_thread": False}
 engine = create_engine(sqlite_url, connect_args=connect_args)
 
 
-
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
-
 
 
 def upload_questions():
@@ -80,26 +79,16 @@ def upload_data():
     upload_choices()
 
 
-
 @app.on_event("startup")
 def on_startup():
     create_db_and_tables()
-
-
 
 def get_session():
     with Session(engine) as session:
         yield session
 
 
-
 SessionDep = Annotated[Session, Depends(get_session)]
-
-
-
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to HueMe!"}
 
 
 class Choice(SQLModel, table=True):
@@ -126,7 +115,6 @@ def create_question(question: Question, session: SessionDep) -> Question:
     return question
 
 
-
 @app.get("/questions")
 def get_questions(session: SessionDep) -> list[Question]:
     questions = session.exec(select(Question).offset(0).limit(100)).all()
@@ -146,3 +134,19 @@ def play(session: SessionDep):
 
     return question_dicts
 
+
+templates = Jinja2Templates(directory="app/templates")
+
+@app.get("/questions/{id}")
+def render_a_question(id, request: Request, session: SessionDep):
+    result = session.exec(select(Question).filter(Question.id==id)).first()
+    q = result
+    result = session.exec(select(Choice).filter(Choice.question_id==id)).all()
+    c = result
+    return templates.TemplateResponse("question.html", {"request": request, "question": q.question, "choices": c})
+
+
+@app.get("/questions_in_html")
+def get_questions(request: Request, session: SessionDep) -> list[Question]:
+    questions = session.exec(select(Question).offset(0).limit(100)).all()
+    return templates.TemplateResponse("questions.html", {"request": request, "questions": questions})

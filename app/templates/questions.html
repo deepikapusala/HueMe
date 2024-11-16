@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<body>
+
+    <h2>Hue Me</h2>
+    {% for question in questions %}
+    <div class="w3-container">
+        <p>{{ question.question }}</p>
+        <ul class="w3-ul">
+            {% for c in question.choices %}
+            <li> {{ c.choice }} </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+
+</body>
+
+</html>
