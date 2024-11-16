@@ -1,5 +1,5 @@
 from typing import Annotated
-import csv, json
+import csv, jsonimport csv
 from fastapi import FastAPI, Depends
 from fastapi import Response
 from sqlmodel import Field, Session, SQLModel, create_engine, select, Relationship
@@ -13,11 +13,26 @@ connect_args = {"check_same_thread": False}
 engine = create_engine(sqlite_url, connect_args=connect_args)
 
 
+
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
 
 
+
 def upload_questions():
+    with open("app/data/questions.csv", mode="r") as file:
+        data = csv.DictReader(file)
+        with Session(engine) as session:
+            for row in data:
+                new_question = Question(
+                    id=int(row["id"]),
+                    question=row["question"],
+                    is_enabled=row["is_enabled"].strip().lower() == "true",
+                    keywords=row["keywords"]
+                )
+                session.add(new_question)  
+            session.commit()
+        
     with open("app/data/questions.csv", mode="r") as file:
         data = csv.DictReader(file)
         with Session(engine) as session:
@@ -46,10 +61,24 @@ def upload_choices():
                 session.add(new_choice)  
             session.commit()  
 
+    with open("app/data/choices.csv", mode="r") as file:
+        data = csv.DictReader(file)
+        with Session(engine) as session:
+            for row in data:
+                new_choice = Choice(
+                    id=int(row["id"]),
+                    question_id=int(row["question_id"]),
+                    choice=row["choice"],
+                    description=row["description"]
+                )
+                session.add(new_choice)  
+            session.commit()  
+
 
 def upload_data():
     upload_questions()
     upload_choices()
+
 
 
 @app.on_event("startup")
@@ -57,12 +86,15 @@ def on_startup():
     create_db_and_tables()
 
 
+
 def get_session():
     with Session(engine) as session:
         yield session
 
 
+
 SessionDep = Annotated[Session, Depends(get_session)]
+
 
 
 @app.get("/")
@@ -92,6 +124,7 @@ def create_question(question: Question, session: SessionDep) -> Question:
     session.commit()
     session.refresh(question)
     return question
+
 
 
 @app.get("/questions")
