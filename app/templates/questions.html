@@ -84,19 +84,39 @@
             }
         }
 
-        /* Heading Styling */
         h2 {
             text-align: center;
-            font-size: 4rem;
-            background: linear-gradient(90deg, rgb(128, 66, 186), rgb(198, 44, 245));
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
+            font-size: 3.5rem;
+            color: rgb(75, 44, 245);
+            font-family: 'Arial', sans-serif;
             text-transform: uppercase;
-            font-weight: bold;
-            animation: textGlow 3s ease-in-out infinite, moveText 3s ease-in-out infinite;
-            text-shadow: 0 0 10px rgb(238, 238, 112), 0 0 20px rgb(225, 213, 52), 0 0 30px rgb(197, 239, 44);
-            letter-spacing: 5px;
+            font-weight: 600;
+            animation: textMove 15s linear infinite, textFadeIn 5s ease-in-out;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+            letter-spacing: 3px;
+            display: inline-block;
+            white-space: nowrap;
+            /* Prevents text from wrapping */
+        }
+
+        @keyframes textMove {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes textFadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
         }
 
         /* Question Container Styling */
@@ -142,6 +162,24 @@
         .w3-ul li input {
             margin-right: 10px;
         }
+
+        /* Submit Button Styling */
+        #submit-btn {
+            display: none;
+            /* Initially hidden */
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        #submit-btn:hover {
+            background-color: #e55b00;
+        }
     </style>
 </head>
 
@@ -153,23 +191,26 @@
 
     <h2>HueMe</h2>
 
-    {% for question in questions %}
-    <div class="w3-container question-container" id="question-{{ loop.index }}">
-        {% set index = loop.index %}
-        {% set questions_length = loop.length %}
-        <p><b>{{ question.question }}</b></p>
-        <ul class="w3-ul">
-            {% for c in question.choices %}
-            <li>
-                <label>
-                    <input type="radio" name="question-{{ index }}"
-                        onchange="showNextQuestion({{ index }}, {{ questions_length }})"> {{ c.choice }}
-                </label>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-    {% endfor %}
+    <form id="hue_me_form" method="post" action="/evaluate">
+        {% for question in questions %}
+        <div class="w3-container question-container" id="question-{{ loop.index }}">
+            {% set index = loop.index %}
+            {% set questions_length = loop.length %}
+            <p><b>{{ question.question }}</b></p>
+            <ul class="w3-ul">
+                {% for c in question.choices %}
+                <li>
+                    <label>
+                        <input type="radio" name="question-{{ index }}" value="{{ c.choice }}"
+                            onchange="showNextQuestion({{ index }}, {{ questions_length }})"> {{ c.choice }}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+        <input type="submit" id="submit-btn" value="Submit">
+    </form>
 
     <script>
         // Show the first question by default
@@ -187,7 +228,8 @@
                 nextQuestion.classList.add('active');
             } else {
                 // If no more questions, display a thank-you message
-                alert('Thank you for completing the questionnaire!');
+                // alert('Thank you for completing the questionnaire!');
+                document.getElementById('submit-btn').style.display = 'block';
             }
         }
     </script>

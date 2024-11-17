@@ -29,9 +29,9 @@ def upload_questions():
                     is_enabled=row["is_enabled"].strip().lower() == "true",
                     keywords=row["keywords"]
                 )
-                session.add(new_question)  
+                session.add(new_question)
             session.commit()
-        
+
     with open("app/data/questions.csv", mode="r") as file:
         data = csv.DictReader(file)
         with Session(engine) as session:
@@ -42,9 +42,9 @@ def upload_questions():
                     is_enabled=row["is_enabled"].strip().lower() == "true",
                     keywords=row["keywords"]
                 )
-                session.add(new_question)  
+                session.add(new_question)
             session.commit()
-        
+
 
 def upload_choices():
     with open("app/data/choices.csv", mode="r") as file:
@@ -57,8 +57,8 @@ def upload_choices():
                     choice=row["choice"],
                     description=row["description"]
                 )
-                session.add(new_choice)  
-            session.commit()  
+                session.add(new_choice)
+            session.commit()
 
     with open("app/data/choices.csv", mode="r") as file:
         data = csv.DictReader(file)
@@ -70,8 +70,8 @@ def upload_choices():
                     choice=row["choice"],
                     description=row["description"]
                 )
-                session.add(new_choice)  
-            session.commit()  
+                session.add(new_choice)
+            session.commit()
 
 
 def upload_data():
@@ -82,6 +82,7 @@ def upload_data():
 @app.on_event("startup")
 def on_startup():
     create_db_and_tables()
+
 
 def get_session():
     with Session(engine) as session:
@@ -96,7 +97,7 @@ class Choice(SQLModel, table=True):
     choice: str = Field(index=False)
     description: str = Field(default="", index=False)
     question_id: int = Field(foreign_key="question.id", nullable=False)
-    question: "Question" = Relationship(back_populates="choices") 
+    question: "Question" = Relationship(back_populates="choices")
 
 
 class Question(SQLModel, table=True):
@@ -130,20 +131,23 @@ def seed_data():
 @app.get("/play")
 def play(session: SessionDep):
     questions = session.execute(select(Question)).scalars()
-    question_dicts = [question.dict(exclude={"question_id"}) | {"choices": question.choices} for question in questions]
+    question_dicts = [question.dict(exclude={"question_id"}) | {
+        "choices": question.choices} for question in questions]
 
     return question_dicts
 
 
 templates = Jinja2Templates(directory="app/templates")
 
+
 @app.get("/questions/{id}")
 def render_a_question(id, request: Request, session: SessionDep):
-    result = session.exec(select(Question).filter(Question.id==id)).first()
+    result = session.exec(select(Question).filter(Question.id == id)).first()
     q = result
-    result = session.exec(select(Choice).filter(Choice.question_id==id)).all()
+    result = session.exec(select(Choice).filter(
+        Choice.question_id == id)).all()
     c = result
-    return templates.TemplateResponse("question.html", {"request": request, "question": q.question, "choices": c,"current_page": int(id), "previous_page":int(id)-1, "next_page":int(id)+1})
+    return templates.TemplateResponse("question.html", {"request": request, "question": q.question, "choices": c, "current_page": int(id), "previous_page": int(id)-1, "next_page": int(id)+1})
 
 
 @app.get("/questions_in_html")
@@ -151,3 +155,9 @@ def get_questions(request: Request, session: SessionDep) -> list[Question]:
     questions = session.exec(select(Question).offset(0).limit(100)).all()
     return templates.TemplateResponse("questions.html", {"request": request, "questions": questions})
 
+
+@app.post("/evaluate")
+async def evaluate_form(request: Request):
+    form_data = await request.form()  # Get the form data
+    responses = {key: value for key, value in form_data.items()}
+    return responses
