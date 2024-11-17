@@ -1,19 +1,55 @@
 <!DOCTYPE html>
 <html>
-<title>W3.CSS</title>
+<title>HUEME</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+    a {
+        text-decoration: none;
+        display: inline-block;
+        padding: 8px 16px;
+    }
+
+    a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .previous {
+        background-color: #f1f1f1;
+        color: black;
+    }
+
+    .next {
+        background-color: #04AA6D;
+        color: white;
+    }
+
+    .round {
+        border-radius: 50%;
+    }
+</style>
 
 <body>
 
     <div class="w3-container">
         <h2>Hue Me</h2>
-        <p>{{ question }}</p>
+        <p><b>{{ question }}</b></p>
         <ul class="w3-ul">
             {% for c in choices %}
-            <li> {{ c.choice }} </li>
+            <li><input type="radio" name="{{ current_page }}"> {{ c.choice }} </input></li>
             {% endfor %}
+
         </ul>
+        <br>
+        <br>
+
+        {% if previous_page <= 1 %} {% set previous_page=1 %} {% endif %} 
+        {% if next_page >=15 %} {% set next_page=15 %} {% endif %} <!-- how to get tot pages numb-->
+        
+        <a href="/questions/{{ previous_page }}" class="previous">
+            &laquo; Previous</a>
+            <a href="/questions/{{ next_page }}" class="next">Next &raquo;</a>
     </div>
 
 </body>

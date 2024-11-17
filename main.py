@@ -143,10 +143,11 @@ def render_a_question(id, request: Request, session: SessionDep):
     q = result
     result = session.exec(select(Choice).filter(Choice.question_id==id)).all()
     c = result
-    return templates.TemplateResponse("question.html", {"request": request, "question": q.question, "choices": c})
+    return templates.TemplateResponse("question.html", {"request": request, "question": q.question, "choices": c,"current_page": int(id), "previous_page":int(id)-1, "next_page":int(id)+1})
 
 
 @app.get("/questions_in_html")
 def get_questions(request: Request, session: SessionDep) -> list[Question]:
     questions = session.exec(select(Question).offset(0).limit(100)).all()
     return templates.TemplateResponse("questions.html", {"request": request, "questions": questions})
+
