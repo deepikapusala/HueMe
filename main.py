@@ -2,6 +2,7 @@ from typing import Annotated
 import csv
 from fastapi import FastAPI, Depends
 from fastapi import Request
+from fastapi.responses import RedirectResponse
 from sqlmodel import Field, Session, SQLModel, create_engine, select, Relationship
 from fastapi.templating import Jinja2Templates
 
@@ -108,6 +109,11 @@ class Question(SQLModel, table=True):
     choices: list[Choice] = Relationship(back_populates="question")
 
 
+@app.get("/", include_in_schema=False)
+def redirect_to():
+    return RedirectResponse(url='/questions_in_html')
+    
+
 @app.post("/questions")
 def create_question(question: Question, session: SessionDep) -> Question:
     session.add(question)
@@ -122,9 +128,27 @@ def get_questions(session: SessionDep) -> list[Question]:
     return questions
 
 
+@app.get("/choices")
+def get_choices(session: SessionDep) -> list[Choice]:
+    choices = session.exec(select(Choice).offset(0).limit(100)).all()
+    return choices
+    
+
 @app.get("/data/seed")
 def seed_data():
     upload_data()
+    return {"message": "Success!"}
+
+
+@app.get("/data/seed/questions")
+def seed_questions():
+    upload_questions()
+    return {"message": "Success!"}
+
+
+@app.get("/data/seed/choices")
+def seed_choices():
+    upload_choices()
     return {"message": "Success!"}
 
 
