@@ -33,34 +33,8 @@ def upload_questions():
                 session.add(new_question)
             session.commit()
 
-    with open("app/data/questions.csv", mode="r") as file:
-        data = csv.DictReader(file)
-        with Session(engine) as session:
-            for row in data:
-                new_question = Question(
-                    id=int(row["id"]),
-                    question=row["question"],
-                    is_enabled=row["is_enabled"].strip().lower() == "true",
-                    keywords=row["keywords"]
-                )
-                session.add(new_question)
-            session.commit()
-
 
 def upload_choices():
-    with open("app/data/choices.csv", mode="r") as file:
-        data = csv.DictReader(file)
-        with Session(engine) as session:
-            for row in data:
-                new_choice = Choice(
-                    id=int(row["id"]),
-                    question_id=int(row["question_id"]),
-                    choice=row["choice"],
-                    description=row["description"]
-                )
-                session.add(new_choice)
-            session.commit()
-
     with open("app/data/choices.csv", mode="r") as file:
         data = csv.DictReader(file)
         with Session(engine) as session:
@@ -157,7 +131,6 @@ def play(session: SessionDep):
     questions = session.execute(select(Question)).scalars()
     question_dicts = [question.dict(exclude={"question_id"}) | {
         "choices": question.choices} for question in questions]
-
     return question_dicts
 
 
