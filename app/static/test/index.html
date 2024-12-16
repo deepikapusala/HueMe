@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Density Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="file"] {
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload an Image for Color Density Analysis</h1>
+    <form id="imageForm" action="/upload" method="post" enctype="multipart/form-data">
+        <label for="image">Choose an image:</label>
+        <input type="file" name="image" id="image" accept="image/*" required>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        const form = document.getElementById('imageForm');
+        const resultDiv = document.getElementById('result');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+
+            try {
+                // Send the image to the server using Fetch API
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to process the image.');
+                }
+
+                // Parse and display the API response
+                const data = await response.json();
+                displayResult(data);
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color: red;">${error.message}</p>`;
+            }
+        });
+
+        function displayResult(data) {
+            const { colors, season } = data;
+            let html = '<h2>Analysis Results</h2>';
+
+            if (colors && colors.length > 0) {
+                html += '<h3>Dominant Colors:</h3><ul>';
+                colors.forEach(color => {
+                    html += `<li>RGB(${color.color.red}, ${color.color.green}, ${color.color.blue}) - Score: ${color.score}, Pixel Fraction: ${color.pixelFraction}</li>`;
+                });
+                html += '</ul>';
+            }
+
+            if (season) {
+                html += `<h3>Predicted Season: ${season}</h3>`;
+            }
+
+            resultDiv.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

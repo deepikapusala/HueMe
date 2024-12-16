@@ -2,11 +2,13 @@ from typing import Annotated
 import csv
 from fastapi import FastAPI, Depends
 from fastapi import Request
-from fastapi.responses import RedirectResponse
 from sqlmodel import Field, Session, SQLModel, create_engine, select, Relationship
 from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
 
 app = FastAPI()
+app.mount('/app/static', StaticFiles(directory=Path(__file__).parent.parent.absolute() / "hueme/app/static", html=True), name='static')
 
 sqlite_file_name = "hueme.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
@@ -43,6 +45,7 @@ def upload_choices():
                     id=int(row["id"]),
                     question_id=int(row["question_id"]),
                     choice=row["choice"],
+                    color_palette=row["color_palette"],
                     description=row["description"]
                 )
                 session.add(new_choice)
@@ -70,6 +73,7 @@ SessionDep = Annotated[Session, Depends(get_session)]
 class Choice(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     choice: str = Field(index=False)
+    color_palette:str = Field(default="", index=False)
     description: str = Field(default="", index=False)
     question_id: int = Field(foreign_key="question.id", nullable=False)
     question: "Question" = Relationship(back_populates="choices")
@@ -82,11 +86,6 @@ class Question(SQLModel, table=True):
     keywords: str = Field(index=False)
     choices: list[Choice] = Relationship(back_populates="question")
 
-
-@app.get("/", include_in_schema=False)
-def redirect_to():
-    return RedirectResponse(url='/questions_in_html')
-    
 
 @app.post("/questions")
 def create_question(question: Question, session: SessionDep) -> Question:
@@ -102,27 +101,9 @@ def get_questions(session: SessionDep) -> list[Question]:
     return questions
 
 
-@app.get("/choices")
-def get_choices(session: SessionDep) -> list[Choice]:
-    choices = session.exec(select(Choice).offset(0).limit(100)).all()
-    return choices
-    
-
 @app.get("/data/seed")
 def seed_data():
     upload_data()
-    return {"message": "Success!"}
-
-
-@app.get("/data/seed/questions")
-def seed_questions():
-    upload_questions()
-    return {"message": "Success!"}
-
-
-@app.get("/data/seed/choices")
-def seed_choices():
-    upload_choices()
     return {"message": "Success!"}
 
 
@@ -131,6 +112,7 @@ def play(session: SessionDep):
     questions = session.execute(select(Question)).scalars()
     question_dicts = [question.dict(exclude={"question_id"}) | {
         "choices": question.choices} for question in questions]
+
     return question_dicts
 
 
@@ -154,7 +136,45 @@ def get_questions(request: Request, session: SessionDep) -> list[Question]:
 
 
 @app.post("/evaluate")
-async def evaluate_form(request: Request):
-    form_data = await request.form()  # Get the form data
-    responses = {key: value for key, value in form_data.items()}
-    return responses
+async def evaluate_form(request: Request, session: SessionDep):
+    form_data = await request.form()     
+    user_color_palette = dict()
+    for data in form_data.items():
+        print(data, data[0], data[1])
+        id = data[1]
+        result_choice = session.exec(select(Choice).filter(Choice.id == id)).first()
+        color_palette = result_choice.color_palette
+        if color_palette in user_color_palette:
+            user_color_palette[color_palette] += 1
+        else:
+            user_color_palette[color_palette] = 1
+
+    max_color_palette = max(user_color_palette, key=user_color_palette.get)
+    result = f'You belong to {max_color_palette} seasonal color palette'
+    return templates.TemplateResponse("index.html", {"request": request, "result": result})
+
+
+@app.get("/")
+def get_questions(request: Request, session: SessionDep) -> list[Question]:
+    questions = session.exec(select(Question).offset(0).limit(100)).all()
+    return templates.TemplateResponse("index.html", {"request": request, "questions": questions})
+
+
+@app.post("/clear_data/{table_name}")
+def clear_data_in_table(table_name: str, request: Request, session: SessionDep):
+
+    try:
+        query = f"DELETE FROM {table_name}" 
+        session.exec(query)
+        session.commit()
+        return templates.TemplateResponse("clear_data.html", {
+            "request": request,
+            "message": f"Successfully cleared data from {table_name}."
+        })
+    except Exception as e:
+        return templates.TemplateResponse("clear_data.html", {
+            "request": request,
+            "error": f"Failed to clear data in {table_name}. Error: {str(e)}"
+        })
+    
+

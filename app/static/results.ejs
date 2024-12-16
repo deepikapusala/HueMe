@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+</head>
+<body>
+    <h1>Dominant Colors and Season</h1>
+    <h2>Season: <%= season %></h2>
+    <h3>Dominant Colors:</h3>
+    <ul>
+        <% colors.forEach(color => { %>
+            <li style="color: < %= color %>;"> <%= color %> </li>
+        <% }); %>
+    </ul>
+</body>
+</html>
