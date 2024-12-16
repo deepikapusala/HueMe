@@ -1,37 +1,62 @@
-id,question_id,choice,description
-1,1,Warm Undertone,"Golden,peachy,or yellow tones,looks better in cream than pure white; greenish veins are visible."
-2,1,Cool Undertone,"Pink,bluish,or red tones looks better in pure white than cream,bluish veins are visible."
-3,2,"Light and Warm,Golden blonde,strawberry blonde,or light brown with golden tones.",""
-4,2,"Light and Cool,Ash blonde,platinum,or light brown with a cool,ashy tone.",""
-5,2,"Medium to Dark and Warm,Medium brown,auburn,or dark brown with reddish/golden undertones.",""
-6,2,"Medium to Dark and Cool,Dark brown,black,or cool,ashy undertones.",""
-7,3,"Warm and Light,Light blue,green,or hazel with golden/warm flecks.",""
-8,3,"Cool and Light,Gray-blue,soft blue,or cool green without warm flecks.",""
-9,3,"Rich and Warm,Golden brown,olive,or hazel with golden tones.",""
-10,3,"Deep and Cool,Dark brown,black,or icy blue with high contrast.",""
-11,4,"I tan easily with minimal burning,taking on a golden glow (warm tone).",""
-12,4,"I burn easily or turn pink before tanning (cool tone).",""
-13,5,Gold,"Complements my skin,adds warmth."
-14,5,Silver,"Adds brightness without looking too yellow."
-15,6,High Contrast,"light skin with dark hair or bright blue eyes."
-16,6,Low Contrast,"Soft blending of features,such as light skin with light hair and eyes."
-17,7,Pink or rosy,""
-18,7,Peachy or warm-toned,""
-19,8,Blue or Purple,""
-20,8,green,""
-21,8,Blue and green,""
-22,9,Golden or yellow-toned,""
-23,9,Pink or red-toned,""
-24,10,Tans easily to a warm or golden color,""
-25,10,Burns or turns pink before eventually tanning,""
-26,11,Takes on golden or red highlights,""
-27,11,Appears ashy or maintains its dark tone,""
-28,12,Warm brown or auburn,""
-29,12,Cool brown or black,""
-30,13,My cheeks turn peachy or golden,""
-31,13,My cheeks turn pink or rosy,""
-32,14,Soft and smooth,slightly dewy,""
-33,14,Matte or slightly translucent,""
-34,15,"Brownish or tan,Often related to hyperpigmentation,common in warmer undertones",""
-35,15,"Bluish or purple,Usually due to thin skin or poor circulation,often seen in cooler undertones",""
-36,15,"Grayish or shadow-like,Caused by hollowness under the eyes,can appear in neutral undertones",""
+id,question_id,choice,color_palette,description
+1,1,Warm Subtle,Autumn,"Golden,peachy,or yellow tones,looks better in cream than pure white; greenish veins are visible."
+2,1,Warm Vibrant,Summer,"Pink,bluish,or red tones looks better in pure white than cream,bluish veins are visible."
+3,1,Cool Soft,Spring,
+4,1,Cool Bright,Winter,
+5,2,"Light and Warm,Golden blonde,strawberry blonde,or light brown with golden tones.",Autumn,
+6,2,"Light and Cool,Ash blonde,platinum,or light brown with a cool,ashy tone.",Summer,
+7,2,"Medium to Dark and Warm,Medium brown,auburn,or dark brown with reddish/golden undertones.",Spring,
+8,2,"Medium to Dark and Cool,Dark brown,black,or cool,ashy undertones.",Winter,
+9,3,"Warm and Light,Light blue,green,or hazel with golden/warm flecks.",Autumn,
+10,3,"Cool and Light,Gray-blue,soft blue,or cool green without warm flecks.",Summer,
+11,3,"Rich and Warm,Golden brown,olive,or hazel with golden tones.",Spring,
+12,3,"Deep and Cool,Dark brown,black,or icy blue with high contrast.",Winter,
+13,4,"I tan easily with minimal burning, taking on a soft golden glow(Warm Undertone - Subtle, Spring Palette).
+",Autumn,
+14,4,"I tan deeply with a rich golden hue, rarely burning (Warm Undertone - Vibrant, Autumn Palette).",Summer,
+15,4,I burn easily or turn pink before tanning (cool tone).,Spring,
+16,4,"I burn easily and rarely tan, with a pinkish undertone (Cool Undertone - Bright, Winter Palette)",Winter,
+17,5,Gold,Summer,"Complements my skin,adds warmth."
+18,5,Platinum,Winter,
+19,5,Antique,Winter,
+20,5,Rose Gold,Summer,Adds brightness without looking too yellow.
+21,6,Very High Contrast,Summer,light skin with dark hair or bright blue eyes.
+22,6,HIgh Contrast ,Autumn,
+23,6,Very Low Contrast,Winter,
+24,6,Low Contrast,Spring,"Soft blending of features,such as light skin with light hair and eyes."
+25,7,"Soft peach or light golden (Warm Undertone - Subtle, Spring Palette).",Spring,
+26,7,"Rich peach or deep golden (Warm Undertone - Vibrant, Autumn Palette).",Autumn,
+27,7,"Light pink or soft rosy (Cool Undertone - Soft, Summer Palette).",Summer,
+28,7,"Bright pink or deep rosy (Cool Undertone - Bright, Winter Palette).",Winter,
+29,8,"Light green or olive (Warm Undertone - Subtle, Spring Palette).",Spring,
+30,8,"Deep green (Warm Undertone - Vibrant, Autumn Palette).",Autumn,
+31,8,"Light blue or soft purple (Cool Undertone - Soft, Summer Palette).",Summer,
+32,8,"Bright blue or deep purple (Cool Undertone - Bright, Winter Palette).",Winter,
+33,9,"Soft golden or light yellow-toned (Warm Undertone - Subtle, Spring Palette).",Spring,
+34,9,"Rich golden or deep yellow-toned (Warm Undertone - Vibrant, Autumn Palette).",Autumn,
+35,9,"Soft pink or pale red-toned (Cool Undertone - Soft, Summer Palette).",Summer,
+36,9,"Bright pink or vibrant red-toned (Cool Undertone - Bright, Winter Palette).",Winter,
+37,10,"Tans easily to a light, warm golden color (Warm Undertone - Subtle, Spring Palette).",Spring,
+38,10,"Tans deeply to a rich, golden-brown hue (Warm Undertone - Vibrant, Autumn Palette).",Autumn,
+39,10,"Burns slightly and tans to a soft, pinkish-beige color (Cool Undertone - Soft, Summer Palette).",Summer,
+40,10,"Burns easily with little to no tanning, leaving a reddish or pinkish undertone (Cool Undertone - Bright, Winter Palette).",Winter,
+41,11,"Takes on soft golden highlights in sunlight (Warm Undertone - Subtle, Spring Palette).",Spring,
+42,11,"Takes on rich golden or red highlights in sunlight (Warm Undertone - Vibrant, Autumn Palette).",Autumn,
+43,11,"Appears slightly ashy or develops cool-toned highlights in sunlight (Cool Undertone - Soft, Summer Palette).",Summer,
+44,11,"Maintains its dark tone or develops bright ashy highlights in sunlight (Cool Undertone - Bright, Winter Palette).",Winter,
+45,12,"Light warm brown or soft golden auburn (Warm Undertone - Subtle, Spring Palette).",Spring,
+46,12,"Deep warm brown or rich auburn (Warm Undertone - Vibrant, Autumn Palette).",Autumn,
+47,12,"Cool brown or soft charcoal gray (Cool Undertone - Soft, Summer Palette).",Summer,
+48,12,"Deep black or sharp cool brown (Cool Undertone - Bright, Winter Palette)",Winter,
+49,13,"My cheeks turn peachy or golden (Warm Undertone - Subtle, Spring Palette).",Spring,
+50,13,"My cheeks turn bright pink or intense rosy (Cool Undertone - Bright, Winter Palette).",Winter,
+51,13,"My cheeks turn deep golden or bronze (Warm Undertone - Vibrant, Autumn Palette).",Autumn,
+52,13,"My cheeks turn soft pink or rosy (Cool Undertone - Soft, Summer Palette).",Summer,
+53,14,"Soft and smooth with a natural glow (Warm Undertone - Subtle, Spring Palette).",Spring,
+54,14,"Soft and smooth with a rich, radiant finish (Warm Undertone - Vibrant, Autumn Palette).",Autumn,
+55,14,"Smooth with a soft, matte finish (Cool Undertone - Soft, Summer Palette).",Summer,
+56,14,"Matte or slightly translucent with a cool, porcelain-like finish",Winter,
+57,15,"Brownish or tan,Often related to hyperpigmentation,common in warmer undertones",Summer,
+58,15,"Bluish or purple,Usually due to thin skin or poor circulation,often seen in cooler undertones",Spring,
+59,15,"Grayish or shadow-like,Caused by hollowness under the eyes,can appear in neutral undertones",Autumn,
+60,15,"Grayish or shadow-like, caused by hollowness under the eyes, can appear in cooler undertones (Cool Undertone - Bright, Winter Palette).",Winter,

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HueMe</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+
+<body>
+
+
+    <h2>HueMe</h2>
+
+    <form id="hue_me_form">
+        {% for question in questions %}
+        <div class="w3-container question-container" id="question-{{ loop.index }}">
+            {% set index = loop.index %}
+            {% set questions_length = loop.length %}
+            <p><b>{{ question.question }}</b></p>
+            <ul class="w3-ul">
+                {% for c in question.choices %}
+                <li>
+                    <label>
+                        <input type="radio" name="question-{{ index }}" value="{{ c.choice }}"
+                            onchange="showNextQuestion({{ index }}, {{ questions_length }})"> {{ c.choice }}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+        <input type="submit" id="submit-btn" value="Submit" onclick="sendRequest()">
+    </form>
+
+    <script>
+        async function sendRequest() {
+            const form = document.getElementById('hue_me_form');
+            const inputs = form.elements; // Get all form elements
+            const values = {};
+
+            for (let input of inputs) {
+                if (input.type === 'radio' && !input.checked) continue; // Skip unchecked radios
+
+                values[input.name] = input.value; // Add other input values
+
+            }
+            // Define the API URL
+            const apiUrl = 'http://127.0.0.1:8000/evaluate';
+            // Example API for POST
+
+            // Define the request data
+            const requestData = {
+                values
+            };
+
+            try {
+                // Make an API call with request data
+                const response = await fetch(apiUrl, {
+                    method: 'POST', // HTTP method
+                    headers: {
+                        'Content-Type': 'application/json' // Specify JSON content
+                    },
+                    body: JSON.stringify(requestData) // Convert request data to JSON
+                });
+
+                // Parse the JSON response
+                const responseData = await response.json();
+
+                // Display the response data or store it in a variable
+                console.log('Response Data: ', responseData.values);
+                data = JSON.stringify(responseData, null, 2);
+                alert(`Your Choices are : ${data}`);
+                // document.write(data)
+            } catch (error) {
+                // Handle errors
+                console.error('Error:', error);
+                alert('Failed to send request. Please try again.');
+            }
+        }
+    </script>
+</body>
+
+</html>

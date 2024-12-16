@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>HueMe - Onestop for Your colour Analysis</title>
+	<link rel="icon" href="{{ url_for('static', path='/images/favicon.png') }}" type="image/x-icon">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="author" content="">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/css/normalize.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/icomoon/icomoon.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/css/vendor.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/style.css') }}">
+
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#header" tabindex="0">
+
+	<div id="header-wrap">
+
+		<div class="top-content">
+			<div class="container-fluid">
+				<div class="row">
+
+					<div class="action-menu">
+
+						<div class="search-bar">
+							<a href="#" class="search-button search-toggle" data-selector="#header-wrap">
+								<i class="icon icon-search"></i>
+							</a>
+							<form role="search" method="get" class="search-box">
+								<input class="search-field text search-input" placeholder="Search" type="search">
+							</form>
+						</div>
+					</div>
+
+				</div><!--top-right-->
+			</div>
+
+		</div>
+	</div>
+	</div><!--top-content-->
+
+	<header id="header">
+		<div class="container-fluid">
+			<div class="row">
+
+				<div class="col-md-2">
+					<div class="main-logo">
+						<a href="">HueMe</a>
+					</div>
+
+				</div>
+
+				<div class="col-md-10">
+
+					<nav id="navbar">
+						<div class="main-menu stellarnav">
+							<ul class="menu-list">
+								<li class="menu-item active"><a href="#home">Home</a></li>
+								<li class="menu-item"><a href="#featured-books" class="nav-link">Upload</a></li>
+								<li class="menu-item"><a href="#popular-books" class="nav-link">Questionnaire</a></li>
+								<li class="menu-item"><a href="#special-offer" class="nav-link">Guide</a></li>
+								<li class="menu-item"><a href="#latest-blog" class="nav-link">Articles</a></li>
+								<li class="menu-item"><a href="#download-app" class="nav-link">Colour Wheel</a></li>
+							</ul>
+
+							<div class="hamburger">
+								<span class="bar"></span>
+								<span class="bar"></span>
+								<span class="bar"></span>
+							</div>
+
+						</div>
+					</nav>
+
+				</div>
+
+			</div>
+		</div>
+	</header>
+
+	</div><!--header-wrap-->
+
+	<section id="billboard">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+
+					<button class="prev slick-arrow">
+						<i class="icon icon-arrow-left"></i>
+					</button>
+
+					<div class="main-slider pattern-overlay">
+						<div class="slider-item">
+							<div class="banner-content">
+								<h2 class="banner-title">Welcome to HueMe</h2>
+								<p>Where we bring the art of color analysis to life!
+									Color analysis identifies the shades that harmonize with your unique skin tone,
+									features, and personality, helping you look and feel your best.
+									Discover your perfect palette with Hueme and let your colors shine!</p>
+								<div class="btn-wrap">
+									<a href="#" class="btn btn-outline-accent btn-accent-arrow">Read More<i
+											class="icon icon-ns-arrow-right"></i></a>
+								</div>
+							</div><!--banner-content-->
+
+						</div><!--slider-item-->
+
+						<div class="slider-item">
+							<div class="banner-content">
+								<h2 class="banner-title">Our Solution</h2>
+								<p>At Hueme, we combine a simple questionnaire and advanced photo-based analysis to
+									provide personalized color recommendations. The questionnaire captures your
+									preferences and lifestyle, while the photo helps analyze your natural features to
+									identify colors that truly complement you.
+
+								</p>
+								<div class="btn-wrap">
+									<a href="#" class="btn btn-outline-accent btn-accent-arrow">Read More<i
+											class="icon icon-ns-arrow-right"></i></a>
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+	</section>
+
+	<section id="featured-books" class="py-5 my-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+
+					<div class="section-header align-center">
+						<div class="title">
+							<span>Upload your photo below to discover your color palette!</span>
+						</div>
+						<h2 class="section-title">Color Analysis</h2>
+					</div>
+
+					<div class="product-list" data-aos="fade-up">
+						<div class="row">
+
+							<div class="container">
+								<!-- Upload Button -->
+								<div class="upload-section">
+									<form action="/upload" method="post">
+										<input type="file" name="image" accept="image/*" required>
+										<button type="submit">Upload Image </button>
+									</form>
+								</div>
+
+								<!-- Result Tab -->
+								<div class="result-tab">
+									<h2>Your Color Analysis Results</h2>
+									<p>Click below to view your recommendations!</p>
+									<button class="result-button">View Results</button>
+								</div>
+							</div>
+
+						</div><!--ft-books-slider-->
+					</div><!--grid-->
+
+
+				</div><!--inner-content-->
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+
+
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="best-selling" class="leaf-pattern-overlay">
+		<div class="corner-pattern-overlay"></div>
+		<div class="container">
+			<div class="row justify-content-center">
+
+				<div class="col-md-8">
+
+					<div class="row">
+
+						<div class="col-md-6">
+							<figure class="products-thumb">
+								<img src="static/images/Home2.jpeg" alt="book" class="single-image">
+							</figure>
+						</div>
+
+						<div class="col-md-6">
+							<div class="product-entry">
+								<h2 class="section-title divider">Discover Your Perfect Match</h2>
+
+								<div class="products-content">
+									<div class="author-name">At Hue Me, we help you find the colors that best suit your
+										natural beauty.Take our</div>
+									<h3 class="item-title">Quick Color Confidence Quiz</h3>
+									<p>for a second opinion and get even more precise suggestions. Let's make sure
+										you’re ready to shine with the perfect palette!</p>
+
+									<div class="btn-wrap">
+										<a href="#" class="btn-accent-arrow">Let's take up the Qui <i
+												class="icon icon-ns-arrow-right"></i></a>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+					<!-- / row -->
+
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<section id="popular-books" class="bookshelf py-5 my-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+
+					<div class="section-header align-center">
+						<div class="title">
+							<span>Answer the questions below to discover your color palette!</span>
+						</div>
+						<h2 class="section-title"> Questionnaire</h2>
+					</div>
+
+					<form id="hue_me_form" method="post" action="/evaluate">
+						{% for question in questions %}
+						<div class="question" id="question-{{ loop.index }}">
+							{% set index = loop.index %}
+							{% set questions_length = loop.length %}
+							<h2>{{ question.question }}</h2>
+							{% for c in question.choices %}
+							<label>
+								<input type="radio" name="question-{{ index }}" value="{{ c.id }}"
+									onchange="showNextQuestion({{ index }}, {{ questions_length }})"> {{ c.choice }}
+							</label>
+							{% endfor %}
+						</div>
+						{% endfor %}
+						<div class="submit-section">
+							<input type="submit" id="submit-btn" value="Submit">
+						</div>
+					</form>
+
+					{% if result != "" %}
+					<div class="inner-content">
+						<h2 class="section-title divider">{{ result }}</h2>
+					</div>
+					{% endif %}
+				</div>
+
+			</div><!--inner-tabs-->
+
+		</div>
+		</div>
+	</section>
+
+	<section id="quotation" class="align-center pb-5 mb-5">
+		<div class="inner-content">
+			<h2 class="section-title divider">Slay of the Day</h2>
+			<blockquote data-aos="fade-up">
+				<q>"Find your color vibe—if it feels right, it is right. No rules, just hues!"</q>
+				<div class="author-name">-HueMe</div>
+			</blockquote>
+		</div>
+	</section>
+
+	<section id="special-offer" class="bookshelf pb-5 mb-5">
+
+		<div class="section-header align-center">
+			<div class="title">
+				<span>Click on your season to unlock your personalized style guide!</span>
+			</div>
+			<h2 class="section-title">Seasonal Style Secrets</h2>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="inner-content">
+					<div class="product-list" data-aos="fade-up">
+						<div class="grid product-grid">
+							<div class="product-item">
+								<figure class="product-style">
+									<img src="static/images/spring.jpeg" alt="Books" class="product-item">
+									<button type="button" class="add-to-cart" data-product-tile="add-to-cart">READ
+										MORE</button>
+								</figure>
+								<figcaption>
+									<h2>Spring</h2>
+
+							</div>
+							</figcaption>
+
+							<div class="product-item">
+								<figure class="product-style">
+									<img src="static/images/Summer.jpeg" alt="Books" class="product-item">
+									<button type="button" class="add-to-cart" data-product-tile="add-to-cart">READ
+										MORE</button>
+								</figure>
+								<figcaption>
+									<h2>Summer</h2>
+
+							</div>
+							</figcaption>
+
+							<div class="product-item">
+								<figure class="product-style">
+									<img src="static/images/Autumn.jpeg" alt="Books" class="product-item">
+									<button type="button" class="add-to-cart" data-product-tile="add-to-cart">READ
+										MORE</button>
+								</figure>
+								<figcaption>
+									<h2>Autumn</h2>
+
+							</div>
+							</figcaption>
+
+							<div class="product-item">
+								<figure class="product-style">
+									<img src="static/images/winter.png" alt="Books" class="product-item">
+									<button type="button" class="add-to-cart" data-product-tile="add-to-cart">READ
+										MORE</button>
+								</figure>
+								<figcaption>
+									<h2>Winter</h2>
+
+							</div>
+							</figcaption>
+
+
+						</div><!--grid-->
+					</div>
+				</div><!--inner-content-->
+			</div>
+		</div>
+	</section>
+
+	<section id="subscribe">
+		<div class="container">
+			<div class="row justify-content-center">
+
+				<div class="col-md-8">
+					<div class="row">
+
+						<div class="col-md-6">
+
+							<div class="title-element">
+								<h2 class="section-title divider">We'd love to hear from you! </h2>
+							</div>
+
+						</div>
+						<div class="col-md-6">
+
+							<div class="subscribe-content" data-aos="fade-up">
+								<p>Want to connect or learn more? Reach out through our page and we’ll be happy to
+									assist you!</p>
+								<form id="form">
+									<input type="text" name="email" placeholder="Enter your email addresss here">
+									<button class="btn-subscribe">
+										<span>send</span>
+										<i class="icon icon-send"></i>
+									</button>
+								</form>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<section id="latest-blog" class="py-5 my-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+
+					<div class="section-header align-center">
+						<div class="title">
+							<span>Read other articles</span>
+						</div>
+						<h2 class="section-title">Latest Articles</h2>
+					</div>
+
+					<div class="row">
+
+						<div class="col-md-4">
+
+							<article class="column" data-aos="fade-up">
+
+								<figure>
+									<a href="#" class="image-hvr-effect">
+										<img src="static/images/article1.jpeg" alt="post" class="post-image">
+									</a>
+								</figure>
+
+								<div class="post-item">
+									<div class="meta-date">Mar 30, 2024</div>
+									<h3><a href="#">Unlock the Secrets of Color Analysis for Your Best Look</a></h3>
+
+
+
+									<div class="links-element">
+										<div class="categories">inspiration</div>
+										<div class="social-links">
+											<ul>
+												<li>
+													<a href="#"><i class="icon icon-facebook"></i></a>
+												</li>
+
+												<li>
+													<a href="#"><i class="icon icon-behance-square"></i></a>
+												</li>
+											</ul>
+										</div>
+									</div><!--links-element-->
+
+								</div>
+							</article>
+
+						</div>
+						<div class="col-md-4">
+
+							<article class="column" data-aos="fade-up" data-aos-delay="200">
+								<figure>
+									<a href="#" class="image-hvr-effect">
+										<img src="static/images/article2.jpeg" alt="post" class="post-image">
+									</a>
+								</figure>
+								<div class="post-item">
+									<div class="meta-date">Mar 29, 2024</div>
+									<h3><a href="#">How Color Analysis Can Transform Your Style</a></h3>
+
+									<div class="links-element">
+										<div class="categories">fashion</div>
+										<div class="social-links">
+											<ul>
+												<li>
+													<a href="#"><i class="icon icon-facebook"></i></a>
+												</li>
+
+												<li>
+													<a href="#"><i class="icon icon-behance-square"></i></a>
+												</li>
+											</ul>
+										</div>
+									</div><!--links-element-->
+
+								</div>
+							</article>
+
+						</div>
+						<div class="col-md-4">
+
+							<article class="column" data-aos="fade-up" data-aos-delay="400">
+								<figure>
+									<a href="#" class="image-hvr-effect">
+										<img src="static/images/article3.jpeg" alt="post" class="post-image">
+									</a>
+								</figure>
+								<div class="post-item">
+									<div class="meta-date">Feb 27, 2024</div>
+									<h3><a href="#">Discover Your Perfect Palette with Color Analysis </a></h3>
+
+									<div class="links-element">
+										<div class="categories">fashion</div>
+										<div class="social-links">
+											<ul>
+												<li>
+													<a href="#"><i class="icon icon-facebook"></i></a>
+												</li>
+
+												<li>
+													<a href="#"><i class="icon icon-behance-square"></i></a>
+												</li>
+											</ul>
+										</div>
+									</div><!--links-element-->
+
+								</div>
+							</article>
+
+						</div>
+
+					</div>
+
+					<div class="row">
+
+						<div class="btn-wrap align-center">
+							<a href="#" class="btn btn-outline-accent btn-accent-arrow" tabindex="0">Read All Articles<i
+									class="icon icon-ns-arrow-right"></i></a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="download-app" class="leaf-pattern-overlay">
+		<div class="corner-pattern-overlay"></div>
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-8">
+					<div class="row">
+
+						<div class="col-md-5">
+							<figure>
+								<img src="static/images/colourWheel.png" alt="phone" class="single-image">
+							</figure>
+						</div>
+
+						<div class="col-md-7">
+							<div class="app-info">
+								<h2 class="section-title divider">Interactive Color Wheel</h2>
+								<p>Play around, test combinations, and find shades that enhance your unique undertone.
+									Get ready to style with confidence and make every hue work for you!</p>
+								<div class="google-app">
+									<a href="https://www.canva.com/colors/color-wheel/" class="button">
+										<h3>Click here</h3>
+									</a>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer id="footer">
+		<div class="container">
+			<div class="row">
+
+
+
+				<div class="footer-item">
+					<div class="company-brand">
+
+						<h1>Thanks for vibing with us!</h1>
+						<h4>We’re here to help you find the colors that make you feel unstoppable. Embrace your
+							uniqueness, trust your instincts, and always wear what makes you shine.</h4>
+						<h4> Stay bold, stay true, and most importantly</h4>
+						<h2>—stay YOU. Keep slaying! </h2>
+					</div>
+				</div>
+
+
+				<!-- / row -->
+
+			</div>
+	</footer>
+
+	<div id="footer-bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+
+					<div class="copyright">
+						<div class="row">
+
+							<div class="col-md-6">
+								<p>© 2024 All rights reserved.</p>
+							</div>
+
+							<div class="col-md-6">
+								<div class="social-links align-right">
+									<ul>
+										<li>
+											<a href="#"><i class="icon icon-facebook"></i></a>
+										</li>
+
+										<li>
+											<a href="#"><i class="icon icon-youtube-play"></i></a>
+										</li>
+										<li>
+											<a href="#"><i class="icon icon-behance-square"></i></a>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+						</div>
+					</div><!--grid-->
+
+				</div><!--footer-bottom-content-->
+			</div>
+		</div>
+	</div>
+
+	<script src="{{ url_for('static', path='/js/jquery-1.11.0.min.js') }}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+		crossorigin="anonymous"></script>
+	<script src="{{ url_for('static', path='/js/plugins.js') }}"></script>
+	<script src="{{ url_for('static', path='/js/script.js') }}"></script>
+
+</body>
+
+</html>
