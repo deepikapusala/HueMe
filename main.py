@@ -7,12 +7,14 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 
+
 app = FastAPI()
-app.mount('/app/static', StaticFiles(directory=Path(__file__).parent.parent.absolute() / "hueme/app/static", html=True), name='static')
+app.mount('/app/static', StaticFiles(directory=Path(__file__).parent.parent.absolute() /
+          "hueme/app/static", html=True), name='static')
+
 
 sqlite_file_name = "hueme.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
-
 connect_args = {"check_same_thread": False}
 engine = create_engine(sqlite_url, connect_args=connect_args)
 
@@ -73,7 +75,7 @@ SessionDep = Annotated[Session, Depends(get_session)]
 class Choice(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     choice: str = Field(index=False)
-    color_palette:str = Field(default="", index=False)
+    color_palette: str = Field(default="", index=False)
     description: str = Field(default="", index=False)
     question_id: int = Field(foreign_key="question.id", nullable=False)
     question: "Question" = Relationship(back_populates="choices")
@@ -137,12 +139,13 @@ def get_questions(request: Request, session: SessionDep) -> list[Question]:
 
 @app.post("/evaluate")
 async def evaluate_form(request: Request, session: SessionDep):
-    form_data = await request.form()     
+    form_data = await request.form()
     user_color_palette = dict()
     for data in form_data.items():
         print(data, data[0], data[1])
         id = data[1]
-        result_choice = session.exec(select(Choice).filter(Choice.id == id)).first()
+        result_choice = session.exec(
+            select(Choice).filter(Choice.id == id)).first()
         color_palette = result_choice.color_palette
         if color_palette in user_color_palette:
             user_color_palette[color_palette] += 1
@@ -151,7 +154,7 @@ async def evaluate_form(request: Request, session: SessionDep):
 
     max_color_palette = max(user_color_palette, key=user_color_palette.get)
     result = f'You belong to {max_color_palette} seasonal color palette'
-    return templates.TemplateResponse("index.html", {"request": request, "result": result})
+    return templates.TemplateResponse("result.html", {"request": request, "result": result})
 
 
 @app.get("/")
@@ -164,7 +167,7 @@ def get_questions(request: Request, session: SessionDep) -> list[Question]:
 def clear_data_in_table(table_name: str, request: Request, session: SessionDep):
 
     try:
-        query = f"DELETE FROM {table_name}" 
+        query = f"DELETE FROM {table_name}"
         session.exec(query)
         session.commit()
         return templates.TemplateResponse("clear_data.html", {
@@ -176,5 +179,3 @@ def clear_data_in_table(table_name: str, request: Request, session: SessionDep):
             "request": request,
             "error": f"Failed to clear data in {table_name}. Error: {str(e)}"
         })
-    
-

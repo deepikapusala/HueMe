@@ -90,129 +90,15 @@
 
 	</div><!--header-wrap-->
 
-	<section id="billboard">
-
+	<section id="result" class="align-center py-5 my-5">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-
-					<button class="prev slick-arrow">
-						<i class="icon icon-arrow-left"></i>
-					</button>
-
-					<div class="main-slider pattern-overlay">
-						<div class="slider-item">
-							<div class="banner-content">
-								<h2 class="banner-title">Welcome to HueMe</h2>
-								<p>Where we bring the art of color analysis to life!
-									Color analysis identifies the shades that harmonize with your unique skin tone,
-									features, and personality, helping you look and feel your best.
-									Discover your perfect palette with Hueme and let your colors shine!</p>
-								<div class="btn-wrap">
-									<a href="#" class="btn btn-outline-accent btn-accent-arrow">Read More<i
-											class="icon icon-ns-arrow-right"></i></a>
-								</div>
-							</div><!--banner-content-->
-
-						</div><!--slider-item-->
-
-						<div class="slider-item">
-							<div class="banner-content">
-								<h2 class="banner-title">Our Solution</h2>
-								<p>At Hueme, we combine a simple questionnaire and advanced photo-based analysis to
-									provide personalized color recommendations. The questionnaire captures your
-									preferences and lifestyle, while the photo helps analyze your natural features to
-									identify colors that truly complement you.
-
-								</p>
-								<div class="btn-wrap">
-									<a href="#" class="btn btn-outline-accent btn-accent-arrow">Read More<i
-											class="icon icon-ns-arrow-right"></i></a>
-								</div>
-
-
-							</div>
-						</div>
+					{% if result != "" %}
+					<div class="inner-content">
+						<h2 class="section-title divider">{{ result }}</h2>
 					</div>
-				</div>
-	</section>
-
-	<section id="best-selling" class="leaf-pattern-overlay">
-		<div class="corner-pattern-overlay"></div>
-		<div class="container">
-			<div class="row justify-content-center">
-
-				<div class="col-md-8">
-
-					<div class="row">
-
-						<div class="col-md-6">
-							<figure class="products-thumb">
-								<img src="{{ url_for('static', path='/images/Home2.jpeg') }}" alt="book"
-									class="single-image">
-							</figure>
-						</div>
-
-						<div class="col-md-6">
-							<div class="product-entry">
-								<h2 class="section-title divider">Discover Your Perfect Match</h2>
-
-								<div class="products-content">
-									<div class="author-name">At Hue Me, we help you find the colors that best suit your
-										natural beauty.Take our</div>
-									<h3 class="item-title">Quick Color Confidence Quiz</h3>
-									<p>for a second opinion and get even more precise suggestions. Let's make sure
-										you’re ready to shine with the perfect palette!</p>
-
-									<div class="btn-wrap">
-										<a href="#" class="btn-accent-arrow">Let's take up the Qui <i
-												class="icon icon-ns-arrow-right"></i></a>
-									</div>
-								</div>
-
-							</div>
-						</div>
-
-					</div>
-					<!-- / row -->
-
-				</div>
-
-			</div>
-		</div>
-	</section>
-
-	<section id="questionnaire" class="bookshelf py-5 my-5">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-
-					<div class="section-header align-center">
-						<div class="title">
-							<span>Answer the questions below to discover your color palette!</span>
-						</div>
-						<h2 class="section-title"> Questionnaire</h2>
-					</div>
-
-					<form id="hue_me_form" method="post" action="/evaluate">
-						{% for question in questions %}
-						<div class="question" id="question-{{ loop.index }}">
-							{% set index = loop.index %}
-							{% set questions_length = loop.length %}
-							<h2>{{ question.question }}</h2>
-							{% for c in question.choices %}
-							<label>
-								<input type="radio" name="question-{{ index }}" value="{{ c.id }}"
-									onchange="showNextQuestion({{ index }}, {{ questions_length }})"> {{ c.choice }}
-							</label>
-							{% endfor %}
-						</div>
-						{% endfor %}
-						<div class="submit-section">
-							<input type="submit" id="submit-btn" value="Submit">
-						</div>
-					</form>
-
+					{% endif %}
 				</div>
 
 			</div><!--inner-tabs-->
