@@ -6,11 +6,12 @@ from sqlmodel import Field, Session, SQLModel, create_engine, select, Relationsh
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
+import os
 
 
 app = FastAPI()
-app.mount('/app/static', StaticFiles(directory=Path(__file__).parent.parent.absolute() /
-          "hueme/app/static", html=True), name='static')
+static_dir = os.path.join(os.path.dirname(__file__), "app/static")
+app.mount("/",StaticFiles(directory=static_dir, html=True),name="static")
 
 
 sqlite_file_name = "hueme.db"
